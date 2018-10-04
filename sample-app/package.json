@@ -1,5 +1,5 @@
 {
-  "name": "core-dns-sample-app",
+  "name": "internal-service-sample",
   "version": "1.0.0",
   "private": true,
   "repository": {

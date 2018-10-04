@@ -1,28 +1,29 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: core-dns-sample-service
+  name: my-internal-service
   labels:
     # any Pods with matching labels are included in this Deployment
-    app: external-svc-poc
-    tier: core-dns-sample-service
+    app: external-service-poc
+    tier: my-internal-service
 spec:
   # ReplicaSet specification
   replicas: 3
   selector:
     matchLabels:
       # ReplicaSet labels will match Pods with the following labels
-      tier: core-dns-sample-service
+      tier: my-internal-service
   template:
     metadata:
       labels:
         # Pod's labels
-        app: external-svc-poc
-        tier: core-dns-sample-service
+        app: external-service-poc
+        tier: my-internal-service
     spec:
       containers:
         - name: communication-container
-          image: core-dns-sample:latest
+          image: internal-service-sample:latest
+          # Force local registry lookup
           imagePullPolicy: Never
           ports:
             - containerPort: 80

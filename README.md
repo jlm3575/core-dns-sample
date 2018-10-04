@@ -1,4 +1,4 @@
-# Kubernetes core-dns-sample
+# Kubernetes my-internal
 
 This sample deployment creates a simple ExternalName Service, a LoadBalancer Service, and a ReplicaSet with three pods runninng a simple Node application.
 
@@ -18,39 +18,38 @@ Thanks to [Jonathan Campos](https://github.com/jonbcampos) for his [Kubernetes e
 1. Run the following command in any new terminal window to support local Docker images with Minikube.
 
    `eval $(minikube docker-env)`
-2. Run the setup script 
-   
+2. Run the setup script
+
    `./setup.sh`
-   
+
    _This will run the destroy script first, so comment that out if it's not desired. I'm working on a better way._
 3. Ensure the pods are running
 
    `kubectl get pods`
-   
+
 4. Verify via logs that we are able to use the external name via CoreDNS (_your pod name will slightly vary_)
 
-   `kubectl logs --follow core-dns-sample-service-55d6c4bcc7-8bpvz`
-   
-   Look for a line similar to `GET http://core-dns-sample-external:200`
-   
-   
+   `kubectl logs --follow my-internal-service-55d6c4bcc7-8bpvz`
+
+   Look for a line similar to `GET http://my-external-service:200`
+
+
 ### Inspect the Moving Parts of the Deployment
 
 1. Get Kubernetes objects by type
-   
+
    `kubectl get _OBJECT_TYPE_` where the type is one of _deployments_, _services_, or _pods_
-   
+
 2. Inspect the properties of an object
 
    `kubectl describe _OBJECT_NAME_` where the name is the first column in one of the output rows from the above `get` command (_your pod name will slightly vary_)
-   
+
 3. Run commands on a Pod
 
-   `kubectl exec core-dns-sample-service-55d6c4bcc7-8bpvz cat /etc/hostname`
-   
+   `kubectl exec my-internal-service-55d6c4bcc7-8bpvz cat /etc/hostname`
+
 4. See ReplicaSet Pods respawn (_your pod name will slightly vary_)
-   
-   `kubectl delete pod core-dns-sample-service-55d6c4bcc7-8bpvz` will terminate the pod
-   
+
+   `kubectl delete pod my-internal-service-55d6c4bcc7-8bpvz` will terminate the pod
+
    `kubectl get pods` will show one terminating and another starting
-   

@@ -1,5 +1,5 @@
 #!/bin/sh
-kubectl delete deployment core-dns-sample-service
-kubectl delete service core-dns-sample-service
-kubectl delete service core-dns-sample-external
+kubectl delete deployment my-internal-service
+kubectl delete service my-internal-service
+kubectl delete service my-external-service
 kubectl delete pods --all

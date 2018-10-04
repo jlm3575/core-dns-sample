@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: core-dns-sample-external
+  name: my-external-service
 spec:
   ports:
   - name: http
@@ -11,4 +11,4 @@ spec:
   type: ExternalName
   externalName: astros.com
   selector:
-    app: external-svc-poc
+    app: external-service-poc

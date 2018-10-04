@@ -1,5 +1,5 @@
 const http = require('http')
-const url = 'http://core-dns-sample-external'
+const url = 'http://my-external-service'
 
 function start() {
   http.get(url, (res, req) => {
