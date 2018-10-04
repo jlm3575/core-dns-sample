@@ -4,6 +4,8 @@ This sample deployment creates a simple ExternalName Service, a LoadBalancer Ser
 
 Once running, the Node application will simply perform a simple HTTP requests to the external dns name every second, logging response code or error, depending on the outcome.
 
+Thanks to [Jonathan Campos](https://github.com/jonbcampos) for his [Kubernetes examples](https://github.com/jonbcampos/kubernetes-series).
+
 ### Prerequisites
 
 1. Install [Docker](https://docs.docker.com/install/)
