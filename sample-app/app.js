@@ -1,5 +1,5 @@
 const http = require('http')
-const url = 'http://core-dns-sample-external.default.svc.cluster.local'
+const url = 'http://core-dns-sample-external'
 
 function start() {
   http.get(url, (res, req) => {
