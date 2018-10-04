@@ -3,10 +3,6 @@ const url = 'http://core-dns-sample-external'
 
 function start() {
   http.get(url, (res, req) => {
-    let html = ''
-    res.on('data', (chunk) => {
-      html += chunk
-    })
     console.log('GET ' + url + ':' + res.statusCode)
     console.log('HEADERS:' + JSON.stringify(res.headers))
     console.log('\n')
