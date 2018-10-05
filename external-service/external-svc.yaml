@@ -9,6 +9,6 @@ spec:
     targetPort: 80
     protocol: TCP
   type: ExternalName
-  externalName: astros.com
+  externalName: affinipay.com
   selector:
     app: external-service-poc

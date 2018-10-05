@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: my-internal-service
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  backend:
+    serviceName: default-http-backend
+    servicePort: 80
+  rules:
+  - host: external-service-sample.internal
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: my-internal-service
+          servicePort: 80

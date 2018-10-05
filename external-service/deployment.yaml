@@ -21,9 +21,9 @@ spec:
         tier: my-internal-service
     spec:
       containers:
-        - name: communication-container
+        - name: internal-service-container
           image: internal-service-sample:latest
           # Force local registry lookup
           imagePullPolicy: Never
           ports:
-            - containerPort: 80
+            - containerPort: 3000
