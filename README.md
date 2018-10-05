@@ -1,8 +1,6 @@
-# Kubernetes my-internal
-
 This sample deployment creates a simple ExternalName Service, a LoadBalancer Service, and a ReplicaSet with three pods runninng a simple Node application.
 
-Once running, the Node application will simply perform a simple HTTP requests to the external dns name every second, logging response code or error, depending on the outcome.
+Once running, the Node application will listen for requests on the root path, and proxy the content of the ExternalName service. This demonstrates an exposed internal service that is able to access an external host using CoreDNS.
 
 Thanks to [Jonathan Campos](https://github.com/jonbcampos) for his [Kubernetes examples](https://github.com/jonbcampos/kubernetes-series).
 
@@ -31,7 +29,23 @@ Thanks to [Jonathan Campos](https://github.com/jonbcampos) for his [Kubernetes e
 
    `kubectl logs --follow my-internal-service-55d6c4bcc7-8bpvz`
 
-   Look for a line similar to `GET http://my-external-service:200`
+5. Add a host mapping for our service in `/etc/hosts`
+
+   Get your Minikube host IP using `minikube ip`
+
+   `[minikube-ip] external-service-sample.internal`
+
+6. Ensure our load balancer is running. This command should open in browser showing the contents of external url. Note the IP is the Minikube IP, and remember the port.
+
+   `minikube service my-internal-service`
+
+7. Inspect our load balancer. Note that the NodePort value matches the port we saw in step 7.
+
+   `kubectl describe service my-internal-service`
+
+8. Visit our internal service in a browser using its ingress host. This should produce the same content as
+
+   `http://external-service-sample.internal`
 
 
 ### Inspect the Moving Parts of the Deployment
