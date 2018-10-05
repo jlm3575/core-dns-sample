@@ -1,5 +1,7 @@
 FROM node:7.9.0
 
-COPY ./app.js /opt/sample-app/app.js
+COPY ./* /opt/sample-app/
+
+RUN cd /opt/sample-app && npm install
 
 CMD node /opt/sample-app/app.js
