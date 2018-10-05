@@ -8,7 +8,7 @@ metadata:
     tier: my-internal-service
 spec:
   # ReplicaSet specification
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       # ReplicaSet labels will match Pods with the following labels

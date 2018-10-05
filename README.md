@@ -25,9 +25,11 @@ Thanks to [Jonathan Campos](https://github.com/jonbcampos) for his [Kubernetes e
 
    `kubectl get pods`
 
-4. Verify via logs that we are able to use the external name via CoreDNS (_your pod name will slightly vary_)
+4. Verify via logs that our service is running properly (_your pod name will slightly vary_)
 
    `kubectl logs --follow my-internal-service-55d6c4bcc7-8bpvz`
+
+   You should see the line `Example app listening on port 3000!`
 
 5. Add a host mapping for our service in `/etc/hosts`
 

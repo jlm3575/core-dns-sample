@@ -20,7 +20,7 @@ function proxyRequest(res, url) {
 }
 
 app.get('/', (req, res) => {
-  proxyRequest(res, 'http://affinipay.com')
+  proxyRequest(res, 'http://my-external-service')
 })
 
 app.get('/hello', (req, res) => {
@@ -30,53 +30,3 @@ app.get('/hello', (req, res) => {
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
-// function start() {
-//   http.get(url, (res, req) => {
-//     console.log('GET ' + url + ':' + res.statusCode)
-//     console.log('HEADERS:' + JSON.stringify(res.headers))
-//     console.log('\n')
-//     setTimeout(start, 1000)
-//   }).on('error', (e) => {
-//     console.error(`Got error: ${e.message}`)
-//     setTimeout(start, 1000)
-//   })
-// }
-//
-// start()
-
-
-//   const creq = http.request(options || {}, function(cres) {
-//     cres.setEncoding('utf8');
-//     cres.on('data', function(chunk){
-//       res.write(chunk);
-//     });
-//
-//     cres.on('close', function(){
-//       res.end();
-//     });
-//
-//     cres.on('end', function(){
-//       res.end();
-//     });
-//
-//   }).on('error', function(e) {
-//     console.log(e.message);
-//     res.end();
-//   });
-//
-//   creq.end();
-// }
-
-// function fetchExternalUrl () {
-//
-//   // http.get('https://www.neworleanssants.com', (res, req) => {
-//   //   console.log('GET ' + url + ':' + res.statusCode)
-//   //   console.log('HEADERS:' + JSON.stringify(res.headers))
-//   //   console.log('\n')
-//   //   setTimeout(start, 1000)
-//   // }).on('error', (e) => {
-//   //   console.error(`Got error: ${e.message}`)
-//   //   setTimeout(start, 1000)
-//   // })
-// }
