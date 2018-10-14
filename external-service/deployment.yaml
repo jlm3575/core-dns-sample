@@ -26,4 +26,16 @@ spec:
           # Force local registry lookup
           imagePullPolicy: Never
           ports:
-            - containerPort: 3000
+          - containerPort: 3000
+          #command: [ "/bin/sh", "-c", "env" ]
+          envFrom:
+          - secretRef:
+              name: mysecret
+          - secretRef:
+              name: db-user-pass
+          - configMapRef:
+              name: app-env-file.properties
+          - configMapRef:
+              name: app.properties
+          - configMapRef:
+              name: ui.properties

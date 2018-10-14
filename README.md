@@ -2,6 +2,8 @@ This sample deployment creates a simple ExternalName Service, a LoadBalancer Ser
 
 Once running, the Node application will listen for requests on the root path, and proxy the content of the ExternalName service. This demonstrates an exposed internal service that is able to access an external host using CoreDNS.
 
+Inside each pod is a set of environment variables created from key:value map files, including a simple set of admin/password secrets.
+
 Thanks to [Jonathan Campos](https://github.com/jonbcampos) for his [Kubernetes examples](https://github.com/jonbcampos/kubernetes-series).
 
 ### Prerequisites
@@ -10,6 +12,8 @@ Thanks to [Jonathan Campos](https://github.com/jonbcampos) for his [Kubernetes e
 2. Install the [Kubernetes CLI](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
 3. Setup a local Kubernetes cluster with [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/).
 4. Ensure you are [running CoreDNS in Minikube](https://coredns.io/2017/04/28/coredns-for-minikube/).
+5. Ensure you have enabled ingress in Minikube
+   `minikube addons enable ingress`
 
 ### Running the Deployment
 
@@ -69,3 +73,15 @@ Thanks to [Jonathan Campos](https://github.com/jonbcampos) for his [Kubernetes e
    `kubectl delete pod my-internal-service-55d6c4bcc7-8bpvz` will terminate the pod
 
    `kubectl get pods` will show one terminating and another starting
+
+5. See all environment variables exposed inside the pods (_your pod name will slightly vary_)
+   `kubectl exec -it my-internal-service-5557946c59-h24k8 -- env`
+
+   Grep for any environment variable found in the ./configs files, or any secret found in the ./secrets files. Examples
+
+   `kubectl exec -it my-internal-service-58485bbcb9-8cdh5 -- env | grep user
+    username=admin
+    db-user.txt=dbadmin
+
+    kubectl exec -it my-internal-service-58485bbcb9-8cdh5 -- env | grep mascot
+    lawpay.enabled.mascot=unicorn`
