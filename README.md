@@ -2,7 +2,7 @@ This sample deployment creates a simple ExternalName Service, a LoadBalancer Ser
 
 Once running, the Node application will listen for requests on the root path, and proxy the content of the ExternalName service. This demonstrates an exposed internal service that is able to access an external host using CoreDNS.
 
-Inside each pod is a set of environment variables created from key:value map files, including a simple set of admin/password secrets.
+Inside each pod is a set of environment variables created from key:value map files, including a simple set of admin/password secrets. To further demonstrate configuration mapping, the app.properties config map is mounted as the volume /etc/config.
 
 Thanks to [Jonathan Campos](https://github.com/jonbcampos) for his [Kubernetes examples](https://github.com/jonbcampos/kubernetes-series).
 
@@ -85,3 +85,9 @@ Thanks to [Jonathan Campos](https://github.com/jonbcampos) for his [Kubernetes e
 
     kubectl exec -it my-internal-service-58485bbcb9-8cdh5 -- env | grep mascot
     lawpay.enabled.mascot=unicorn`
+
+6. See the mounted config volume inside the pods (_your pod name will slightly vary_)
+
+   `kubectl exec -it my-internal-service-5557946c59-h24k8 -- ls /etc/config
+   kubectl exec -it my-internal-service-5557946c59-h24k8 -- cat /etc/config/company
+   kubectl exec -it my-internal-service-5557946c59-h24k8 -- cat /etc/config/brands`
