@@ -29,4 +29,4 @@ app.get('/hello', (req, res) => {
   res.end()
 })
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Example app listening on host port ${port}!`))

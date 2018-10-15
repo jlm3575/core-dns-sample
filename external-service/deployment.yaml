@@ -25,5 +25,25 @@ spec:
           image: internal-service-sample:latest
           # Force local registry lookup
           imagePullPolicy: Never
+          volumeMounts:
+          - name: app-config-volume
+            mountPath: /etc/config
           ports:
-            - containerPort: 3000
+          - containerPort: 3000
+          envFrom:
+          - secretRef:
+              name: mysecret
+          - secretRef:
+              name: db-user-pass
+          - configMapRef:
+              name: app-env-file.properties
+          - configMapRef:
+              name: app.properties
+          - configMapRef:
+              name: ui.properties
+      volumes:
+      - name: app-config-volume
+        configMap:
+          # Provide the name of the ConfigMap containing the files you want
+          # to add to the container
+          name: app.properties
