@@ -107,12 +107,12 @@ Sample configurations and secrets were imported as part of container deployment.
    company:
    ----
    affinipay
-   lawpay.enabled:
+   website.enabled:
    ----
    true
-   lawpay.enabled.mascot:
+   website.enabled.mascot:
    ----
-   unicorn
+   ranger
    Events:  <none>
    ```
 
@@ -177,7 +177,7 @@ Sample configurations and secrets were imported as part of container deployment.
 
    ```
    kubectl exec -it my-internal-service-58485bbcb9-8cdh5 -- env | grep mascot
-   lawpay.enabled.mascot=unicorn
+   website.enabled.mascot=ranger
    ```
 
 4. See the mounted config volume inside the pods (_your pod name will slightly vary_)
