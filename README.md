@@ -2,7 +2,9 @@ This sample deployment creates a simple ExternalName Service, a LoadBalancer Ser
 
 Once running, the Node application will listen for requests on the root path, and proxy the content of the ExternalName service. This demonstrates an exposed internal service that is able to access an external host using CoreDNS.
 
-Inside each pod is a set of environment variables created from key:value map files, including a simple set of admin/password secrets. To further demonstrate configuration mapping, the app.properties config map is mounted as the volume /etc/config.
+Inside each pod is a set of environment variables created from key:value map files. To further demonstrate configuration mapping, the app.properties config map is mounted as the volume /etc/config.
+
+Two simple sets of secrets are provided and exposed to each pod as ENV variables. Each set demonstrates a different way of creating secrets. All secrets are stored in the API server as plaintext at rest in etcd, and for this effort, they are available to all admin users. (No sensitive data is checked into this branch, only demonstration data.)
 
 Thanks to [Jonathan Campos](https://github.com/jonbcampos) for his [Kubernetes examples](https://github.com/jonbcampos/kubernetes-series).
 
@@ -91,3 +93,47 @@ Thanks to [Jonathan Campos](https://github.com/jonbcampos) for his [Kubernetes e
    `kubectl exec -it my-internal-service-5557946c59-h24k8 -- ls /etc/config
    kubectl exec -it my-internal-service-5557946c59-h24k8 -- cat /etc/config/company
    kubectl exec -it my-internal-service-5557946c59-h24k8 -- cat /etc/config/brands`
+
+7. See the base64 encoded secrets created from YAML
+   `kubectl get secret mysecret -o yaml
+
+    apiVersion: v1
+    data:
+      password: MWYyZDFlMmU2N2Rm
+      username: YWRtaW4=
+    kind: Secret
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: |
+          {"apiVersion":"v1","data":{"password":"MWYyZDFlMmU2N2Rm","username":"YWRtaW4="},"kind":"Secret","metadata":{"annotations":{},"name":"mysecret","namespace":"default"},"type":"Opaque"}
+      creationTimestamp: 2018-10-15T16:37:56Z
+      name: mysecret
+      namespace: default
+      resourceVersion: "109592"
+      selfLink: /api/v1/namespaces/default/secrets/mysecret
+      uid: ab84051e-d098-11e8-a026-080027239c66
+    type: Opaque`
+
+    `echo -n YWRtaW4= | base64
+    admin`
+
+8. See the base64 encoded secrets created from plain text files
+
+   `kubectl get secret db-user-pass -o yaml
+
+    apiVersion: v1
+    data:
+      db-pass: TWpNNFprUkpVaWxSSkd0elpYST0=
+      db-user: WkdKaFpHMXBiZz09
+    kind: Secret
+    metadata:
+      creationTimestamp: 2018-10-15T16:37:56Z
+      name: db-user-pass
+      namespace: default
+      resourceVersion: "109594"
+      selfLink: /api/v1/namespaces/default/secrets/db-user-pass
+      uid: ab9f5ef8-d098-11e8-a026-080027239c66
+    type: Opaque
+
+    echo -n WkdKaFpHMXBiZz09 | base64
+    dbadmin`
